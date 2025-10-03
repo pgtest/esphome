@@ -1073,8 +1073,7 @@ void WaveshareEPaper2P66InBV2::initialize() {
   // SetWindows(self, Xstart, Ystart, Xend, Yend):
 
   uint32_t xend = this->get_width_controller() - 1;
-  //uint32_t yend = this->get_height_internal() - 1;
-  uint32_t yend = this->get_height_internal();
+  uint32_t yend = this->get_height_internal() - 1;
   
   this->command(0x44);
   this->data(0x00);
@@ -1117,7 +1116,7 @@ void HOT WaveshareEPaper2P66InBV2::display() {
 
   this->wait_until_idle_();
 }
-int WaveshareEPaper2P66InBV2::get_width_internal() { return 152; }
+int WaveshareEPaper2P66InBV2::get_width_internal() { return 153; }
 int WaveshareEPaper2P66InBV2::get_height_internal() { return 296; }
 void WaveshareEPaper2P66InBV2::dump_config() {
   LOG_DISPLAY("", "Waveshare E-Paper", this);
