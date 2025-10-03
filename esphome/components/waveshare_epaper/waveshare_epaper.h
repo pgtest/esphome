@@ -182,7 +182,7 @@ enum WaveshareEPaperTypeBModel {
   WAVESHARE_EPAPER_7_5_INV2,
   WAVESHARE_EPAPER_7_5_IN_B_V2,
   WAVESHARE_EPAPER_13_3_IN_K,
-  WAVESHARE_EPAPER_2_66_IN_B,
+  WAVESHARE_EPAPER_2_66_IN_B_V2,
 };
 
 class WaveshareEPaper1P54InBV2 : public WaveshareEPaperBWR {
@@ -194,6 +194,25 @@ class WaveshareEPaper1P54InBV2 : public WaveshareEPaperBWR {
   void dump_config() override;
 
   void deep_sleep() override {
+    this->command(0x10);
+    this->data(0x01);
+  }
+
+ protected:
+  int get_width_internal() override;
+  int get_height_internal() override;
+};
+
+class WaveshareEPaper2P66InBV2 : public WaveshareEPaperBWR {
+ public:
+  void initialize() override;
+
+  void display() override;
+
+  void dump_config() override;
+
+  void deep_sleep() override {
+    // COMMAND DEEP SLEEP
     this->command(0x10);
     this->data(0x01);
   }
@@ -222,29 +241,6 @@ class WaveshareEPaper2P7In : public WaveshareEPaper {
   int get_height_internal() override;
 };
 
-class WaveshareEPaper2P66InB : public WaveshareEPaperBWR {
- public:
-  void initialize() override;
-
-  void display() override;
-
-  void dump_config() override;
-
-  void deep_sleep() override {
-    // COMMAND VCOM_AND_DATA_INTERVAL_SETTING
-    this->command(0x50);
-    // COMMAND POWER OFF
-    this->command(0x02);
-    this->wait_until_idle_();
-    // COMMAND DEEP SLEEP
-    this->command(0x07);  // deep sleep
-    this->data(0xA5);     // check byte
-  }
-
- protected:
-  int get_width_internal() override;
-  int get_height_internal() override;
-};
 class WaveshareEPaper2P7InB : public WaveshareEPaperBWR {
  public:
   void initialize() override;
