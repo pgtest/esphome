@@ -1161,7 +1161,7 @@ void WaveshareEPaper2P66InB::initialize() {
   delay(2);
 }
 
-void HOT WaveshareEPaper2P7InB::display() {
+void HOT WaveshareEPaper2P66InB::display() {
   uint32_t buf_len_half = this->get_buffer_length_() >> 1;
   this->initialize();
 
@@ -1197,9 +1197,9 @@ void HOT WaveshareEPaper2P7InB::display() {
 
   this->deep_sleep();
 }
-int WaveshareEPaper2P7InB::get_width_internal() { return 152; }
-int WaveshareEPaper2P7InB::get_height_internal() { return 296; }
-void WaveshareEPaper2P7InB::dump_config() {
+int WaveshareEPaper2P66InB::get_width_internal() { return 152; }
+int WaveshareEPaper2P66InB::get_height_internal() { return 296; }
+void WaveshareEPaper2P66InB::dump_config() {
   LOG_DISPLAY("", "Waveshare E-Paper", this);
   ESP_LOGCONFIG(TAG, "  Model: 2.66in B");
   LOG_PIN("  Reset Pin: ", this->reset_pin_);
