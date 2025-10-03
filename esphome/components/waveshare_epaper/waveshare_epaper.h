@@ -182,6 +182,7 @@ enum WaveshareEPaperTypeBModel {
   WAVESHARE_EPAPER_7_5_INV2,
   WAVESHARE_EPAPER_7_5_IN_B_V2,
   WAVESHARE_EPAPER_13_3_IN_K,
+  WAVESHARE_EPAPER_2_66_IN_B,
 };
 
 class WaveshareEPaper1P54InBV2 : public WaveshareEPaperBWR {
