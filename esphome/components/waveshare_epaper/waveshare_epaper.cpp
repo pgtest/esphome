@@ -1115,8 +1115,8 @@ void HOT WaveshareEPaper2P66InBV2::display() {
 
   this->wait_until_idle_();
 }
-int WaveshareEPaper2P66InBV2::get_width_internal() { return 176; }
-int WaveshareEPaper2P66InBV2::get_height_internal() { return 264; }
+int WaveshareEPaper2P66InBV2::get_width_internal() { return 152; }
+int WaveshareEPaper2P66InBV2::get_height_internal() { return 296; }
 void WaveshareEPaper2P66InBV2::dump_config() {
   LOG_DISPLAY("", "Waveshare E-Paper", this);
   ESP_LOGCONFIG(TAG, "  Model: 2.66in B V2");
