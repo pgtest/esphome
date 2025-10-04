@@ -1095,7 +1095,7 @@ void HOT WaveshareEPaper2P66InBV2BWR::display() {
 }
 int WaveshareEPaper2P66InBV2BWR::get_width_internal() { return 152; }
 int WaveshareEPaper2P66InBV2BWR::get_height_internal() { return 296; }
-void WaveshareEPaper1P66InBV2BWR::dump_config() {
+void WaveshareEPaper2P66InBV2BWR::dump_config() {
   LOG_DISPLAY("", "Waveshare E-Paper", this);
   ESP_LOGCONFIG(TAG, "  Model: 2.66in (B V2) BWR-Mode");
   LOG_PIN("  Reset Pin: ", this->reset_pin_);
