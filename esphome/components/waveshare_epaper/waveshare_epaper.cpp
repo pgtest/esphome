@@ -1076,14 +1076,14 @@ void WaveshareEPaper2P66InBV2::initialize() {
   uint32_t yend = this->get_height_internal() - 1;
   
   this->command(0x44);
-  this->data(0x00);
-  this->data((xend >> 3) & 0xff);
+  this->data(0x00);   // 01 h instead of 00 h
+  this->data((xend >> 3) & 0xff);  // 
 
   this->command(0x45);
-  this->data(0x00);
-  this->data(0x00);
-  this->data(yend & 0xff);
-  this->data((yend >> 8) & 0xff);
+  this->data(0x00);    // 0127 h istället för 00 h
+  this->data(0x00);    // ok top bit 8 från 0127 h
+  this->data(yend & 0xff);  // OK
+  this->data((yend >> 8) & 0xff);  // Ok
 
   // SetCursor(self, Xstart, Ystart):
   this->command(0x4E);
@@ -1091,6 +1091,11 @@ void WaveshareEPaper2P66InBV2::initialize() {
   this->command(0x4F);
   this->data(0x00);
   this->data(0x00);
+  // set RAM content option for display
+  this->command(0x21);
+  this->data(0x00);    // normal
+  this->data(0x00);    // normal
+  
 }
 
 void HOT WaveshareEPaper2P66InBV2::display() {
