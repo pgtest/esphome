@@ -1101,7 +1101,7 @@ void HOT WaveshareEPaper2P66InBV2BWR::display() {
   delay(2);
   for (uint32_t i = 0; i < buf_len; i++) {
     // filter out B and W ... B = 0 and W = 1 for each pixel 
-    this->data(this->buffer_[i]& 0x1);
+    this->data(this->buffer_[i]);
   }
   delay(2);
 
@@ -1110,7 +1110,7 @@ void HOT WaveshareEPaper2P66InBV2BWR::display() {
   delay(2);
   for (uint32_t i = 0; i < buf_len; i++) {
     // filter out B and W ... Red on = 1 and Red off = 0 for each pixel 
-    this->data(this->buffer_[i] & 0xe);
+    this->data(this->buffer_[i]);
   }
 
   delay(2);
