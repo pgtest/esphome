@@ -1095,11 +1095,11 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
 }
 
 void HOT WaveshareEPaper2P66InBV2BWR::display() {
-  uint32_t buf_len = this->get_buffer_length_();
+  uint32_t buf_len = this->get_buffer_length_()/2;
   // COMMAND DATA START TRANSMISSION 1 (BLACK)
   this->command(0x24);
   delay(2);
-  for (uint32_t i = 0; i < buf_len; i++) {
+  for (uint32_t i = 0; i < buf_len/2; i++) {
     this->data(this->buffer_[i]);
   }
   delay(2);
@@ -1107,7 +1107,8 @@ void HOT WaveshareEPaper2P66InBV2BWR::display() {
   // COMMAND DATA START TRANSMISSION 2  (RED)
   this->command(0x26);
   delay(2);
-  for (uint32_t i = 0; i < buf_len; i++) {
+//  for (uint32_t i = 0; i < buf_len; i++) {
+  for (uint32_t i = buf_len/2; i < buf_len; i++) {
     this->data(this->buffer_[i]);
   }
 
