@@ -1055,18 +1055,18 @@ void WaveshareEPaper1P54InBV2::dump_config() {
 //
 
 void WaveshareEPaper2P66InBV2BWR::initialize() {
-  this->reset_();
+  this->reset_();  // Ok
 
   this->wait_until_idle_();
-  this->command(0x12);
+  this->command(0x12);   // OK
   this->wait_until_idle_();
 
-  this->command(0x00);
+  this->command(0x00);   // what is this? 0x00 not found in manual  lowest command is 0x01 ... data fits 
   this->data(0x27);
   this->data(0x01);
   this->data(0x00);
 
-  this->command(0x11);
+  this->command(0x11);   // data entry sequence direction OK
   this->data(0x03);
 
   // self.SetWindows(0, 0, self.width-1, self.height-1)
@@ -1074,15 +1074,16 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
 
   uint32_t xend = this->get_width_controller() - 1;
   uint32_t yend = this->get_height_internal() - 1;
+  // this part need fixing
   this->command(0x44);
-  this->data(0x00);
-  this->data((xend >> 3) & 0xff);
+  this->data(0x00);     // waveshare code is this-> data((Xstart >> 3) & 0x1f);  assume Xstart = 0 then no change
+  this->data((xend >> 3) & 0x1f);// old : this->data((xend >> 3) & 0xff);
 
   this->command(0x45);
-  this->data(0x00);
-  this->data(0x00);
-  this->data(yend & 0xff);
-  this->data((yend >> 8) & 0xff);
+  this->data(0x00);  // waveshare code is this-> data(Ystart & 0xFF);  assume Ystart = 0 then no change
+  this->data(0x00);  // waveshare code is this-> data((Ystart >> 8) & 0x01);  assume Ystart = 0 then no change
+  this->data(yend & 0xff);  // OK
+  this->data((yend >> 8) & 0x1f);   // old:  this->data((yend >> 8) & 0xff);  
 
   // SetCursor(self, Xstart, Ystart):
   this->command(0x4E);
@@ -1090,6 +1091,7 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
   this->command(0x4F);
   this->data(0x00);
   this->data(0x00);
+  // end of fixed part
 }
 
 void HOT WaveshareEPaper2P66InBV2BWR::display() {
