@@ -1056,7 +1056,7 @@ void WaveshareEPaper1P54InBV2::dump_config() {
 void WaveshareEPaper2P66InBV2BWR::initialize() {
   // these exact timings are required for a proper reset/init
   this->reset_pin_->digital_write(false);
-  delay(2);
+  delay(10);
   this->reset_pin_->digital_write(true);
   delay(200);  // NOLINT
 
