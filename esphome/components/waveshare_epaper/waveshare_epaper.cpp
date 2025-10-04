@@ -1048,90 +1048,61 @@ void WaveshareEPaper1P54InBV2::dump_config() {
 }
 
 // ========================================================
-//                          2.66inch_e-paper_b_v2
-// ========================================================
+//    2.66in Type B With Red colour support (LUT from OTP)
 // Datasheet:
-//  - https://www.waveshare.com/w/upload/7/7b/2.7inch-e-paper-b-v2-specification.pdf
-//  - https://github.com/waveshare/e-Paper/blob/master/RaspberryPi_JetsonNano/c/lib/e-Paper/EPD_2in7b_V2.c
+// 
+// The implementation is an adaptation of WaveshareEPaper4P2InBV2 class
+// ========================================================
+void WaveshareEPaper2P66InBV2BWR::initialize() {
+  // these exact timings are required for a proper reset/init
+  this->reset_pin_->digital_write(false);
+  delay(2);
+  this->reset_pin_->digital_write(true);
+  delay(200);  // NOLINT
 
-void WaveshareEPaper2P66InBV2::initialize() {
-  this->reset_();
-
+  // COMMAND POWER ON
+  this->command(0x04);
   this->wait_until_idle_();
+
+  // COMMAND PANEL SETTING
+  this->command(0x00);
+  this->data(0x0f);  // LUT from OTP
+}
+
+void HOT WaveshareEPaper2P66InBV2BWR::display() {
+  const uint32_t buf_len = this->get_buffer_length_() / 2u;
+
+  this->command(0x10);  // Send BW data Transmission
+  delay(2);             // Delay to prevent Watchdog error
+  for (uint32_t i = 0; i < buf_len; ++i) {
+    this->data(this->buffer_[i]);
+  }
+
+  this->command(0x13);  // Send red data Transmission
+  delay(2);             // Delay to prevent Watchdog error
+  for (uint32_t i = 0; i < buf_len; ++i) {
+    // Red color need to flip bit from the buffer. Otherwise, red will conqure the screen!
+    this->data(~this->buffer_[buf_len + i]);
+  }
+
+  // COMMAND DISPLAY REFRESH
   this->command(0x12);
   this->wait_until_idle_();
 
-  this->command(0x00);
-  this->data(0x27);
-  this->data(0x01);
-  this->data(0x00);
-
-  this->command(0x11);
-  this->data(0x03);
-
-  // self.SetWindows(0, 0, self.width-1, self.height-1)
-  // SetWindows(self, Xstart, Ystart, Xend, Yend):
-
-  uint32_t xend = this->get_width_controller() - 1;
-  uint32_t yend = this->get_height_internal() - 1;
-  
-  this->command(0x44);
-  this->data(0x00);   // 01 h instead of 00 h
-  this->data((xend >> 3) & 0xff);  // 
-
-  this->command(0x45);
-  this->data(0x00);    // 0127 h istället för 00 h
-  this->data(0x00);    // ok top bit 8 från 0127 h
-  this->data(yend & 0xff);  // OK
-  this->data((yend >> 8) & 0xff);  // Ok
-
-  // SetCursor(self, Xstart, Ystart):
-  this->command(0x4E);
-  this->data(0x00);
-  this->command(0x4F);
-  this->data(0x00);
-  this->data(0x00);
-  // set RAM content option for display
-  this->command(0x21);
-  this->data(0x00);    // normal
-  this->data(0x00);    // normal
-  
+  // COMMAND POWER OFF
+  // NOTE: power off < deep sleep
+  this->command(0x02);
 }
-
-void HOT WaveshareEPaper2P66InBV2::display() {
-  uint32_t buf_len = this->get_buffer_length_();
-  // COMMAND DATA START TRANSMISSION 1 (BLACK)
-  this->command(0x24);
-  delay(2);
-  for (uint32_t i = 0; i < buf_len; i++) {
-    this->data(this->buffer_[i]);
-  }
-  delay(2);
-
-  // COMMAND DATA START TRANSMISSION 2  (RED)
-  this->command(0x26);
-  delay(2);
-  for (uint32_t i = 0; i < buf_len; i++) {
-    this->data(this->buffer_[i]);
-  }
-
-  delay(2);
-
-  this->command(0x20);
-
-  this->wait_until_idle_();
-}
-int WaveshareEPaper2P66InBV2::get_width_internal() { return 152; }
-int WaveshareEPaper2P66InBV2::get_height_internal() { return 296; }
-void WaveshareEPaper2P66InBV2::dump_config() {
+int WaveshareEPaper2P66InBV2BWR::get_width_internal() { return 152; }
+int WaveshareEPaper2P66InBV2BWR::get_height_internal() { return 296; }
+void WaveshareEPaper1P66InBV2BWR::dump_config() {
   LOG_DISPLAY("", "Waveshare E-Paper", this);
-  ESP_LOGCONFIG(TAG, "  Model: 2.66in B V2");
+  ESP_LOGCONFIG(TAG, "  Model: 2.66in (B V2) BWR-Mode");
   LOG_PIN("  Reset Pin: ", this->reset_pin_);
   LOG_PIN("  DC Pin: ", this->dc_pin_);
   LOG_PIN("  Busy Pin: ", this->busy_pin_);
   LOG_UPDATE_INTERVAL(this);
 }
-
 
 
 // ========================================================
