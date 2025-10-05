@@ -1072,7 +1072,7 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
   // self.SetWindows(0, 0, self.width-1, self.height-1)
   // SetWindows(self, Xstart, Ystart, Xend, Yend):
 
-  uint32_t xend = this->get_width_controller() - 1;
+  uint32_t xend = 152 //this->get_width_controller() - 1;
   uint32_t yend = this->get_height_internal(); - 1;
   // this part need fixing
   this->command(0x44);
