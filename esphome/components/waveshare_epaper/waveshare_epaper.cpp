@@ -1061,10 +1061,10 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
   this->command(0x12);   // OK
   this->wait_until_idle_();
 
-  this->command(0x00);   // what is this? 0x00 not found in manual  lowest command is 0x01 ... data fits 
-  this->data(0x27);
-  this->data(0x01);
-  this->data(0x00);
+  //this->command(0x00);   // what is this? 0x00 not found in manual  lowest command is 0x01 ... data fits 
+  //this->data(0x27);
+  //this->data(0x01);
+  //this->data(0x00);
 
   this->command(0x11);   // data entry sequence direction OK
   this->data(0x03);
