@@ -1073,7 +1073,7 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
   // SetWindows(self, Xstart, Ystart, Xend, Yend):
 
   uint32_t xend = this->get_width_internal() -1 ; //this->get_width_controller() - 1;
-  uint32_t yend = this->get_height_internal(); - 1;
+  uint32_t yend = this->get_height_internal() - 1;
   // this part need fixing
   this->command(0x44);
   this-> data((0 >> 3) & 0x1f);//this-> data((0 >> 3) & 0x1f);//this->data(0x00);     // waveshare code is this-> data((Xstart >> 3) & 0x1f);  assume Xstart = 0 then no change
