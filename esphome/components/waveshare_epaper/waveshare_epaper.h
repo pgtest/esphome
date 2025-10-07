@@ -220,6 +220,7 @@ class WaveshareEPaper2P66InBV2BWR : public WaveshareEPaperBWR {
  protected:
   int get_width_internal() override;
   int get_height_internal() override;
+   int get_width_controller() override;
 };
 
 class WaveshareEPaper2P7In : public WaveshareEPaper {
