@@ -1087,10 +1087,10 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
 
   // SetCursor(self, Xstart, Ystart):
   this->command(0x4E);
-  this->data(0x00);
+  this->data(0x01);  //this->data(0x00);
   this->command(0x4F);
-  this->data(0x00);
-  this->data(0x00);
+  this->data(0x13);//this->data(0x00);
+  this->data(0x01);//this->data(0x00);
   // end of fixed part
 }
 
