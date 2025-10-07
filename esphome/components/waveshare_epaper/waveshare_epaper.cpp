@@ -1083,7 +1083,7 @@ void WaveshareEPaper2P66InBV2BWR::initialize() {
   this->data(0x00);  // waveshare code is this-> data(Ystart & 0xFF);  assume Ystart = 0 then no change
   this->data(0x00);  // waveshare code is this-> data((Ystart >> 8) & 0x01);  assume Ystart = 0 then no change
   this->data(yend & 0xff);  // OK
-  this->data((yend >> 8) & 0x1f); //this->data((yend >> 8) & 0x1f);   // old:  this->data((yend >> 8) & 0xff);  
+  this->data((yend >> 8) & 0x01); //this->data((yend >> 8) & 0x1f);   // old:  this->data((yend >> 8) & 0xff);  
 
   // SetCursor(self, Xstart, Ystart):
   this->command(0x4E);
