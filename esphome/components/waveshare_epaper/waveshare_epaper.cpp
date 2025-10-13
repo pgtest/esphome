@@ -3571,11 +3571,8 @@ void WaveshareEPaper7P5InBV3BWR::dump_config() {
 void WaveshareEPaper7P5In::initialize() {
   // COMMAND POWER SETTING
   this->command(0x01);
-  this->data(0x07);//this->data(0x37);
+  this->data(0x37);
   this->data(0x00);
-  // added 2 more bytes (device do not care about contents,but might need it)
-  this->data(0x00);
-  this->data(0x00);  
   // COMMAND PANEL SETTING
   this->command(0x00);
   this->data(0xCF);
