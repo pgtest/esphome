@@ -3662,7 +3662,7 @@ namespace cmddata_5P65InF {
 // SHL(1) shift right
 // SHD_N(1) DC-DC on
 // RST_N(1) no reset
-static const uint8_t R00_CMD_PSR[] = {0x00, 0xEF, 0x08};
+static const uint8_t R00_CMD_PSR[] = {0x00, 0xCF, 0x08};//{0x00, 0xEF, 0x08};
 
 // R01H (PWR): Power setting Register
 // internal DC-DC power generation
@@ -3715,7 +3715,7 @@ static const uint8_t R50_CMD_CDI[] = {0x50, 0x37};
 // R60H (TCON) Gate and Source non overlap period command
 // S2G(10) 12 units
 // G2S(10) 12 units
-static const uint8_t R60_CMD_TCON[] = {0x60, 0x22};
+//         static const uint8_t R60_CMD_TCON[] = {0x60, 0x22};
 
 // R61H (TRES) Resolution Setting
 // 0x258 = 600
@@ -3745,7 +3745,7 @@ void WaveshareEPaper5P65InF::initialize() {
   this->cmd_data(R30_CMD_PLL, sizeof(R30_CMD_PLL));
   this->cmd_data(R41_CMD_TSE, sizeof(R41_CMD_TSE));
   this->cmd_data(R50_CMD_CDI, sizeof(R50_CMD_CDI));
-  this->cmd_data(R60_CMD_TCON, sizeof(R60_CMD_TCON));
+  //      this->cmd_data(R60_CMD_TCON, sizeof(R60_CMD_TCON));
   this->cmd_data(R61_CMD_TRES, sizeof(R61_CMD_TRES));
   this->cmd_data(RE3_CMD_PWS, sizeof(RE3_CMD_PWS));
 
