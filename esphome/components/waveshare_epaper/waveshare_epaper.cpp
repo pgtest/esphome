@@ -1124,7 +1124,7 @@ int WaveshareEPaper2P66InBV2BWR::get_height_internal() { return 296; }
 int WaveshareEPaper2P66InBV2BWR::get_width_controller() { return this->get_width_internal(); }
 void WaveshareEPaper2P66InBV2BWR::dump_config() {
   LOG_DISPLAY("", "Waveshare E-Paper", this);
-  ESP_LOGCONFIG(TAG, "  Model: 2.7in B V2");
+  ESP_LOGCONFIG(TAG, "  Model: 2.66in B V2 BWR");
   LOG_PIN("  Reset Pin: ", this->reset_pin_);
   LOG_PIN("  DC Pin: ", this->dc_pin_);
   LOG_PIN("  Busy Pin: ", this->busy_pin_);
